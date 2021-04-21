@@ -1,0 +1,24 @@
+input[type="file"] {
+    visibility: hidden;
+}
+
+.mat-card {
+    padding: 0 1.6rem 1.6rem !important;
+}
+
+mat-card-header {
+    display: flex;
+    flex-direction: column !important;
+    img {
+        width: 100%;
+    }
+}
+
+.image-preview {
+    // height: 8rem;
+    // margin: 1rem 0;
+    
+    // img {
+    //     height: 100%;
+    // }
+}

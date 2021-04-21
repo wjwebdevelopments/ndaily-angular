@@ -1,35 +1,40 @@
-<mat-card>
-  <form (submit)="onSavePost(postForm)" #postForm="ngForm">
+<mat-progress-spinner 
+  *ngIf="isLoading; else card"
+  mode="indeterminate"></mat-progress-spinner>
 
-    <mat-form-field>
-      <input
-        matInput
-        ngModel
-        name="title"
-        [required]=true
-        placeholder="Post Title"
-        #title="ngModel"
-        type="text">
-      <mat-error *ngIf="title.invalid"> Por favor entre un titulo valido </mat-error>
-    </mat-form-field>
+<ng-template #card>
+  <mat-card>
+    <form [formGroup]="PostForm" (submit)="onSavePost()">
+      <mat-card-header *ngIf="imagePreview !== '' && imagePreview && PostForm.get('image')?.valid">
+        <img mat-card-image [src]="imagePreview" [alt]="PostForm.value.title">
+      </mat-card-header>
+  
+      <mat-form-field>
+        <input matInput formControlName="title" placeholder="Post Title" type="text">
+        <mat-error>Por favor entre un titulo valido</mat-error>
+      </mat-form-field>
 
-    <mat-form-field>
-      <textarea
-        matInput
-        ngModel
-        [required]=true
-        name="content"
-        placeholder="Post Content"
-        #content="ngModel"
-        rows="4" ></textarea>
-      <mat-error *ngIf="content.invalid"> Por favor ingresa la descripcion del post </mat-error>
-    </mat-form-field>
+      <div>
+        <button type="button" mat-button (click)="filePicker.click()">Pick image</button>
+        <input type="file" #filePicker (change)="onImagePicker($event)">
+      </div>
 
-    <button
-      type="submit"
-      [disabled]="postForm.invalid"
-      mat-raised-button
-      color="primary">Save post</button>
+      <!-- <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview">
+        <img mat-card-image [src]="imagePreview" [alt]="PostForm.value.title">
+      </div> -->
+    
+      <mat-form-field>
+        <textarea matInput formControlName="content" placeholder="Post Content" rows="4" ></textarea>
+        <mat-error>Por favor ingresa la descripcion del post </mat-error>
+      </mat-form-field>
+  
+      <button
+        type="submit"
+        [disabled]="!PostForm.valid"
+        mat-raised-button
+        color="accent">Save post</button>
+  
+    </form>
+  </mat-card>
+</ng-template>
 
-  </form>
-</mat-card>

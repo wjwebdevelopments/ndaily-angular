@@ -1,0 +1,14 @@
+mat-expansion-panel {
+
+    .post-image {
+        height: 25rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            height: 80%;
+            width: 80%;
+        }
+    }
+}
